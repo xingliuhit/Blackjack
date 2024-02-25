@@ -27,6 +27,8 @@ class BlackJack:
 
     # just after setup
     def play(self, dealer_cards, player_cards):
+        print(f"dealer_cards: {dealer_cards}")
+        print(f"player_cards: {player_cards}")
         # 严格来说，这个 self.dealer_all_possibility 是不准的，但可以近似，应该对最终结果影响不大
         self.cards.mark_cards_popped(dealer_cards)
         self.cards.mark_cards_popped(player_cards)
@@ -38,7 +40,7 @@ class BlackJack:
 
         # 成本是 1， 收益是在 [0, 2].
         print(f"Stand, Expected Income: {self.player_stand(dealer_cards, player_cards)}")
-        print(f"Hit, Expected Income: {self.player_hit(dealer_cards, player_cards)}")
+        # print(f"Hit, Expected Income: {self.player_hit(dealer_cards, player_cards)}")
         print(f"Double Down, Expected Income: {self.player_double_down(dealer_cards, player_cards)}")
         print(f"Surrender, Expected Income: {self.player_surrender()}")
 
@@ -89,7 +91,7 @@ class BlackJack:
         player_all_possibility_no_bust = []
         for next_player_cards in player_all_possibility:
             if is_cards_bust(next_player_cards):
-                expected_income -= (1 / len(next_player_cards))
+                expected_income -= (1 / len(player_all_possibility))
             else:
                 player_all_possibility_no_bust.append(next_player_cards)
 
@@ -98,7 +100,7 @@ class BlackJack:
             next_stand_expected_income = self.player_stand(dealer_cards, next_player_cards)
             # if player choose to Hit
             next_hit_expected_income = self.player_hit(dealer_cards, next_player_cards)
-            expected_income += max(next_stand_expected_income, next_hit_expected_income) * (1 / len(next_player_cards))
+            expected_income += max(next_stand_expected_income, next_hit_expected_income) * (1 / len(player_all_possibility))
 
         self.cards.unmark_cards_popped(dealer_cards)
         self.cards.unmark_cards_popped(player_cards)
@@ -123,13 +125,13 @@ class BlackJack:
         player_all_possibility_no_bust = []
         for next_player_cards in player_all_possibility:
             if is_cards_bust(next_player_cards):
-                expected_income -= (1 / len(next_player_cards))
+                expected_income -= (1 / len(player_all_possibility))
             else:
                 player_all_possibility_no_bust.append(next_player_cards)
 
         for next_player_cards in player_all_possibility_no_bust:
             next_stand_expected_income = self.player_stand(dealer_cards, next_player_cards)
-            expected_income += next_stand_expected_income * (1 / len(next_player_cards))
+            expected_income += next_stand_expected_income * (1 / len(player_all_possibility))
 
         self.cards.unmark_cards_popped(dealer_cards)
         self.cards.unmark_cards_popped(player_cards)

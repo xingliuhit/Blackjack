@@ -24,11 +24,18 @@ def unit_test():
 
 def play_blackjack():
     blackjack = BlackJack(False)
-    dealer_cards = ["7"]
-    player_cards = ["6", "10"]
-    blackjack.play(dealer_cards, player_cards)
-    print(f"next round")
+    blackjack.play(["2"], ["2", "10"])
+    blackjack.play(["3"], ["2", "10"])
+    blackjack.play(["6"], ["2", "10"])
+    blackjack.play(["7"], ["2", "10"])
 
+    blackjack.play(["10"], ["2", "9"])
+
+    blackjack.play(["9"], ["1", "9"])
+    blackjack.play(["10"], ["1", "9"])
+
+    blackjack.play(["2"], ["2", "7"])
+    blackjack.play(["3"], ["2", "7"])
 
 if __name__ == '__main__':
     # unit_test()
