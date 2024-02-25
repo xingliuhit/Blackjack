@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b358973e-4013-41a9-bb90-8163622ef2c3" name="Changes" comment="make small change">
+    <list default="true" id="b358973e-4013-41a9-bb90-8163622ef2c3" name="Changes" comment="fix a bug">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlackJack.py" beforeDir="false" afterPath="$PROJECT_DIR$/BlackJack.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
@@ -91,7 +91,7 @@
       <option name="presentableId" value="Default" />
       <updated>1708802419833</updated>
       <workItem from="1708802424147" duration="5999000" />
-      <workItem from="1708817526454" duration="25674000" />
+      <workItem from="1708817526454" duration="35874000" />
     </task>
     <task id="LOCAL-00001" summary="set up the project">
       <option name="closed" value="true" />
@@ -165,7 +165,15 @@
       <option name="project" value="LOCAL" />
       <updated>1708840949419</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="fix a bug">
+      <option name="closed" value="true" />
+      <created>1708880243732</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1708880243732</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -190,9 +198,10 @@
     <MESSAGE value="add double down and surrender" />
     <MESSAGE value="fix a few issues and acceralate process" />
     <MESSAGE value="make small change" />
-    <option name="LAST_COMMIT_MESSAGE" value="make small change" />
+    <MESSAGE value="fix a bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix a bug" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Blackjack$main.coverage" NAME="main Coverage Results" MODIFIED="1708846148119" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Blackjack$main.coverage" NAME="main Coverage Results" MODIFIED="1708893481868" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

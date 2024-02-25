@@ -31,8 +31,8 @@ def play_blackjack():
 
     blackjack.play(["10"], ["2", "9"])
 
-    blackjack.play(["9"], ["1", "9"])
-    blackjack.play(["10"], ["1", "9"])
+    blackjack.play(["9"], ["A", "9"])
+    blackjack.play(["10"], ["A", "9"])
 
     blackjack.play(["2"], ["2", "7"])
     blackjack.play(["3"], ["2", "7"])

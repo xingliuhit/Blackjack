@@ -15,15 +15,15 @@ def get_player_expected_income(probabilities):
     dealer_win_probability = probabilities[0]
     player_win_probability = probabilities[1]
     push_probability = probabilities[2]
-    return 2*player_win_probability - dealer_win_probability + push_probability
+    return 2*player_win_probability + push_probability
 
 
 class BlackJack:
     def __init__(self, stand_on_soft_17):
         self.dealer_all_possibility = []
         self.stand_on_soft_17 = stand_on_soft_17
-        # 1 副扑克牌
-        self.cards = Decks(1)
+        # 2 副扑克牌
+        self.cards = Decks(2)
 
     # just after setup
     def play(self, dealer_cards, player_cards):
@@ -42,9 +42,10 @@ class BlackJack:
         print(f"Stand, Expected Income: {self.player_stand(dealer_cards, player_cards)}")
         # print(f"Hit, Expected Income: {self.player_hit(dealer_cards, player_cards)}")
         print(f"Double Down, Expected Income: {self.player_double_down(dealer_cards, player_cards)}")
-        print(f"Surrender, Expected Income: {self.player_surrender()}")
+        # print(f"Surrender, Expected Income: {self.player_surrender()}")
 
     # player choose to stand
+
     def player_stand(self, dealer_cards, player_cards):
         # print("player choose to Stand")
         self.cards.mark_cards_popped(dealer_cards)
@@ -90,9 +91,8 @@ class BlackJack:
 
         player_all_possibility_no_bust = []
         for next_player_cards in player_all_possibility:
-            if is_cards_bust(next_player_cards):
-                expected_income -= (1 / len(player_all_possibility))
-            else:
+            # bust, get 0.
+            if not is_cards_bust(next_player_cards):
                 player_all_possibility_no_bust.append(next_player_cards)
 
         for next_player_cards in player_all_possibility_no_bust:
@@ -124,9 +124,7 @@ class BlackJack:
 
         player_all_possibility_no_bust = []
         for next_player_cards in player_all_possibility:
-            if is_cards_bust(next_player_cards):
-                expected_income -= (1 / len(player_all_possibility))
-            else:
+            if not is_cards_bust(next_player_cards):
                 player_all_possibility_no_bust.append(next_player_cards)
 
         for next_player_cards in player_all_possibility_no_bust:
