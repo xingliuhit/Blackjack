@@ -20,16 +20,10 @@ def is_bust(point):
 
 
 def who_win(dealer_cards, player_cards):
-    dealer_points = get_points(dealer_cards)
-    player_points = get_points(player_cards)
-    dealer_point = 0
-    for point in dealer_points:
-        if not is_bust(point):
-            dealer_point = max(dealer_point, point)
-    player_point = 0
-    for point in player_points:
-        if not is_bust(point):
-            player_point = max(player_point, point)
+    dealer_points = get_all_possible_points(dealer_cards)
+    player_points = get_all_possible_points(player_cards)
+    dealer_point = get_blackjack_point(dealer_cards)
+    player_point = get_blackjack_point(player_cards)
     if dealer_point > player_point:
         return "Dealer"
     elif dealer_point < player_point:
@@ -38,9 +32,18 @@ def who_win(dealer_cards, player_cards):
         return "Push"
 
 
-def get_points(cards):
+def get_blackjack_point(cards):
+    blackjack_point = -1
+    points = get_all_possible_points(cards)
+    for point in points:
+        if not is_bust(point):
+            blackjack_point = max(blackjack_point, point)
+    return blackjack_point
+
+
+def get_all_possible_points(cards):
     result = []
-    __def_cards_get_to_points(cards, result, 0, 0)
+    __dfs_cards_get_to_points(cards, result, 0, 0)
     return result
 
 
@@ -50,7 +53,7 @@ def will_dealer_continue(cards, stand_on_soft_17):
     if "A" in cards:
         # 如果有两张 A, 那第二张必然是 1 点
         # 是一个以 10 为差的等差数列
-        points = get_points(cards)
+        points = get_all_possible_points(cards)
         points.sort()
         if points[1] >= 18:
             return False
@@ -62,14 +65,14 @@ def will_dealer_continue(cards, stand_on_soft_17):
         else:
             return True
     else:
-        point = get_points(cards)[0]
+        point = get_all_possible_points(cards)[0]
         if point <= 16:
             return True
         else:
             return False
 
 
-def __def_cards_get_to_points(cards, result, i, cur_point):
+def __dfs_cards_get_to_points(cards, result, i, cur_point):
     if i == len(cards):
         result.append(cur_point)
         return
@@ -79,7 +82,7 @@ def __def_cards_get_to_points(cards, result, i, cur_point):
     if card == "A":
         for value in map_card_to_value[card]:
             cur_point += value
-            __def_cards_get_to_points(cards, result, i + 1, cur_point)
+            __dfs_cards_get_to_points(cards, result, i + 1, cur_point)
             cur_point -= value
     else:
-        __def_cards_get_to_points(cards, result, i + 1, cur_point + map_card_to_value[card][0])
+        __dfs_cards_get_to_points(cards, result, i + 1, cur_point + map_card_to_value[card][0])

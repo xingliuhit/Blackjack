@@ -1,14 +1,14 @@
-from RuleUtil import get_points, will_dealer_continue, who_win
+from RuleUtil import get_all_possible_points, will_dealer_continue, who_win
 from BlackJack import BlackJack
 
 def unit_test():
     print("unit_test: ")
     # RuleUtil
-    # print(get_points(["A", "3"]))
-    # print(get_points(["3", "7", "10"]))
-    # print(get_points(["3", "A", "10"]))
-    # print(get_points(["3", "A", "10", "A"]))
-    # print(get_points(["3", "A", "J", "A"]))
+    # print(get_all_possible_points(["A", "3"]))
+    # print(get_all_possible_points(["3", "7", "10"]))
+    # print(get_all_possible_points(["3", "A", "10"]))
+    # print(get_all_possible_points(["3", "A", "10", "A"]))
+    # print(get_all_possible_points(["3", "A", "J", "A"]))
     # print(should_dealer_continue(["7", "8"], True))
     # print(should_dealer_continue(["7", "J"], True))
     # print(should_dealer_continue(["2", "3"], True))
@@ -26,7 +26,7 @@ def play_blackkack():
     blackjack = BlackJack(False)
     dealer_cards = ["10"]
     player_cards = ["2", "10"]
-    blackjack.stand_after_setup(dealer_cards, player_cards)
+    blackjack.player_stand(dealer_cards, player_cards)
 
 
 if __name__ == '__main__':
