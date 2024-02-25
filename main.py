@@ -24,12 +24,9 @@ def unit_test():
 
 def play_blackjack():
     blackjack = BlackJack(False)
-    dealer_cards = ["6"]
-    player_cards = ["6", "10"]
-    print(f"Stand, Expected Income: {blackjack.player_stand(dealer_cards, player_cards)}")
-    print(f"Hit, Expected Income: {blackjack.player_hit(dealer_cards, player_cards)}")
-    print(f"Double Down, Expected Income: {blackjack.player_double_down(dealer_cards, player_cards)}")
-    print(f"Surrender, Expected Income: {blackjack.player_surrender(dealer_cards, player_cards)}")
+    dealer_cards = ["2"]
+    player_cards = ["2", "10"]
+    blackjack.play(dealer_cards, player_cards)
     print(f"next round")
 
 

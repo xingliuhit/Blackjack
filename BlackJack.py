@@ -24,18 +24,31 @@ class BlackJack:
         # 1 副扑克牌
         self.cards = Decks(1)
 
+    # just after setup
+    def play(self, dealer_cards, player_cards):
+        # 严格来说，这个 self.dealer_all_possibility 是不准的，但可以近似，应该对最终结果影响不大
+        self.cards.mark_cards_popped(dealer_cards)
+        self.cards.mark_cards_popped(player_cards)
+        dealer_all_possibility = []
+        self.dfs_all_dealer_possibility(dealer_cards, dealer_all_possibility)
+        self.dealer_all_possibility = dealer_all_possibility
+        self.cards.unmark_cards_popped(dealer_cards)
+        self.cards.unmark_cards_popped(player_cards)
+
+        # 成本是 1， 收益是在 [0, 2].
+        print(f"Stand, Expected Income: {self.player_stand(dealer_cards, player_cards)}")
+        print(f"Hit, Expected Income: {self.player_hit(dealer_cards, player_cards)}")
+        print(f"Double Down, Expected Income: {self.player_double_down(dealer_cards, player_cards)}")
+        print(f"Surrender, Expected Income: {self.player_surrender()}")
+
     # player choose to stand
     def player_stand(self, dealer_cards, player_cards):
         # print("player choose to Stand")
         self.cards.mark_cards_popped(dealer_cards)
         self.cards.mark_cards_popped(player_cards)
 
-        # dfs 列出 dealer 的所有可能性
-        dealer_all_possibility = []
-        self.dfs_all_dealer_possibility(dealer_cards, dealer_all_possibility)
         who_win_list = []
-        for dealer_one_possible in dealer_all_possibility:
-            # print(dealer_one_possible)
+        for dealer_one_possible in self.dealer_all_possibility:
             who_win_list.append(who_win(dealer_one_possible, player_cards))
 
         self.cards.unmark_cards_popped(dealer_cards)
