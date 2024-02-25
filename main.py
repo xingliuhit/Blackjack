@@ -22,14 +22,17 @@ def unit_test():
     print(who_win(['2', '7', '3', '2', '3'], ["7", "10"]))
 
 
-def play_blackkack():
+def play_blackjack():
     blackjack = BlackJack(False)
     dealer_cards = ["6"]
-    player_cards = ["4", "10"]
-    print(f"next round Stand, Expected Income: {blackjack.player_stand(dealer_cards, player_cards)}")
-    print(f"next round Hit, Expected Income: {blackjack.player_hit(dealer_cards, player_cards)}")
+    player_cards = ["6", "10"]
+    print(f"Stand, Expected Income: {blackjack.player_stand(dealer_cards, player_cards)}")
+    print(f"Hit, Expected Income: {blackjack.player_hit(dealer_cards, player_cards)}")
+    print(f"Double Down, Expected Income: {blackjack.player_double_down(dealer_cards, player_cards)}")
+    print(f"Surrender, Expected Income: {blackjack.player_surrender(dealer_cards, player_cards)}")
+    print(f"next round")
 
 
 if __name__ == '__main__':
     # unit_test()
-    play_blackkack()
+    play_blackjack()

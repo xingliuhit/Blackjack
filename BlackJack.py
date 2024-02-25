@@ -15,13 +15,13 @@ def get_player_expected_income(probabilities):
     dealer_win_probability = probabilities[0]
     player_win_probability = probabilities[1]
     push_probability = probabilities[2]
-    return player_win_probability - dealer_win_probability
+    return 2*player_win_probability - dealer_win_probability + push_probability
 
 
 class BlackJack:
     def __init__(self, stand_on_soft_17):
         self.stand_on_soft_17 = stand_on_soft_17
-        # 1副扑克牌
+        # 1 副扑克牌
         self.cards = Decks(1)
 
     # player choose to stand
@@ -37,6 +37,9 @@ class BlackJack:
         for dealer_one_possible in dealer_all_possibility:
             # print(dealer_one_possible)
             who_win_list.append(who_win(dealer_one_possible, player_cards))
+
+        self.cards.unmark_cards_popped(dealer_cards)
+        self.cards.unmark_cards_popped(player_cards)
 
         # calculate results and print
         dealer_win_times = 0
@@ -83,7 +86,44 @@ class BlackJack:
             next_hit_expected_income = self.player_hit(dealer_cards, next_player_cards)
             expected_income += max(next_stand_expected_income, next_hit_expected_income) * (1 / len(next_player_cards))
 
+        self.cards.unmark_cards_popped(dealer_cards)
+        self.cards.unmark_cards_popped(player_cards)
         return expected_income
+
+    # only happen after the setup, and player only get 1 more card
+    def player_double_down(self, dealer_cards, player_cards):
+        # print("player choose to Double Down")
+        self.cards.mark_cards_popped(dealer_cards)
+        self.cards.mark_cards_popped(player_cards)
+
+        expected_income = 0
+
+        # player hit, find all possibilities with only adding 1 card
+        player_all_possibility = []
+        remaining_cards = self.cards.get_remaining_cards_in_list()
+        for card in remaining_cards:
+            player_cards.append(card)
+            player_all_possibility.append(list(player_cards))
+            player_cards.pop()
+
+        player_all_possibility_no_bust = []
+        for next_player_cards in player_all_possibility:
+            if is_cards_bust(next_player_cards):
+                expected_income -= (1 / len(next_player_cards))
+            else:
+                player_all_possibility_no_bust.append(next_player_cards)
+
+        for next_player_cards in player_all_possibility_no_bust:
+            next_stand_expected_income = self.player_stand(dealer_cards, next_player_cards)
+            expected_income += next_stand_expected_income * (1 / len(next_player_cards))
+
+        self.cards.unmark_cards_popped(dealer_cards)
+        self.cards.unmark_cards_popped(player_cards)
+        return expected_income
+
+    # only happen after the setup (after you have seen your first two cards)
+    def player_surrender(self):
+        return 0.5
 
     def dfs_all_dealer_possibility(self, dealer_cards, dealer_all_possibility):
         if not will_dealer_continue(dealer_cards, self.stand_on_soft_17):
