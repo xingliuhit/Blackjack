@@ -15,9 +15,14 @@ map_card_to_value = {
 }
 
 
-def is_bust(point):
+def is_point_bust(point):
     return point > 21
 
+def is_cards_bust(cards):
+    points = get_all_possible_points(cards)
+    if points[0] > 21:
+        return True
+    return False
 
 def who_win(dealer_cards, player_cards):
     dealer_points = get_all_possible_points(dealer_cards)
@@ -36,7 +41,7 @@ def get_blackjack_point(cards):
     blackjack_point = -1
     points = get_all_possible_points(cards)
     for point in points:
-        if not is_bust(point):
+        if not is_point_bust(point):
             blackjack_point = max(blackjack_point, point)
     return blackjack_point
 

@@ -24,9 +24,10 @@ def unit_test():
 
 def play_blackkack():
     blackjack = BlackJack(False)
-    dealer_cards = ["10"]
-    player_cards = ["2", "10"]
+    dealer_cards = ["6"]
+    player_cards = ["4", "10"]
     blackjack.player_stand(dealer_cards, player_cards)
+    blackjack.player_hit(dealer_cards, player_cards)
 
 
 if __name__ == '__main__':
