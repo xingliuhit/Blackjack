@@ -26,8 +26,8 @@ def play_blackkack():
     blackjack = BlackJack(False)
     dealer_cards = ["6"]
     player_cards = ["4", "10"]
-    blackjack.player_stand(dealer_cards, player_cards)
-    blackjack.player_hit(dealer_cards, player_cards)
+    print(f"next round Stand, Expected Income: {blackjack.player_stand(dealer_cards, player_cards)}")
+    print(f"next round Hit, Expected Income: {blackjack.player_hit(dealer_cards, player_cards)}")
 
 
 if __name__ == '__main__':
