@@ -24,8 +24,8 @@ def unit_test():
 
 def play_blackjack():
     blackjack = BlackJack(False)
-    dealer_cards = ["2"]
-    player_cards = ["2", "10"]
+    dealer_cards = ["7"]
+    player_cards = ["6", "10"]
     blackjack.play(dealer_cards, player_cards)
     print(f"next round")
 

@@ -20,6 +20,7 @@ def get_player_expected_income(probabilities):
 
 class BlackJack:
     def __init__(self, stand_on_soft_17):
+        self.dealer_all_possibility = []
         self.stand_on_soft_17 = stand_on_soft_17
         # 1 副扑克牌
         self.cards = Decks(1)
@@ -29,9 +30,9 @@ class BlackJack:
         # 严格来说，这个 self.dealer_all_possibility 是不准的，但可以近似，应该对最终结果影响不大
         self.cards.mark_cards_popped(dealer_cards)
         self.cards.mark_cards_popped(player_cards)
-        dealer_all_possibility = []
-        self.dfs_all_dealer_possibility(dealer_cards, dealer_all_possibility)
-        self.dealer_all_possibility = dealer_all_possibility
+        find_dealer_all_possibility = []
+        self.dfs_all_dealer_possibility(dealer_cards, find_dealer_all_possibility)
+        self.dealer_all_possibility = find_dealer_all_possibility
         self.cards.unmark_cards_popped(dealer_cards)
         self.cards.unmark_cards_popped(player_cards)
 
@@ -138,15 +139,14 @@ class BlackJack:
     def player_surrender(self):
         return 0.5
 
-    def dfs_all_dealer_possibility(self, dealer_cards, dealer_all_possibility):
+    def dfs_all_dealer_possibility(self, dealer_cards, find_dealer_all_possibility):
         if not will_dealer_continue(dealer_cards, self.stand_on_soft_17):
-            dealer_all_possibility.append(list(dealer_cards))
-            # print(dealer_cards)
+            find_dealer_all_possibility.append(list(dealer_cards))
             return
         remaining_cards = self.cards.get_remaining_cards_in_list()
         for next_card in remaining_cards:
             dealer_cards.append(next_card)
             self.cards.mark_card_popped(next_card)
-            self.dfs_all_dealer_possibility(dealer_cards, dealer_all_possibility)
+            self.dfs_all_dealer_possibility(dealer_cards, find_dealer_all_possibility)
             self.cards.unmark_card_popped(next_card)
             dealer_cards.pop()
